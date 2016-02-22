@@ -71,7 +71,7 @@ include Analyzable
 #
 # puts
 # puts "-------------------------------"
-# puts "FIND PRODUCT 3 AND UPDATE BRAND"
+# puts "FIND PRODUCT 4 AND UPDATE BRAND"
 # puts "-------------------------------"
 # print Product.find(4).update(brand: "NewBrand")
 #
@@ -89,7 +89,7 @@ include Analyzable
 #
 # puts
 # puts "-------------------------------"
-# puts "RETURN PRODUCTS WITH BRAND LEGO"
+# puts "RETURN PRODUCTS WITH BRAND UDACITY"
 # puts "-------------------------------"
 # print Product.where(brand: "Udacity")
 #
