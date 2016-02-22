@@ -80,13 +80,11 @@ class TestUdacidata < MiniTest::Test
   #
   # def test_last_n_returns_array_type
   #   array_of_products = Product.last(3)
-  #   data = CSV.read(@data_path)
   #   assert_kind_of(Array, array_of_products)
   # end
   #
   # def test_last_n_returns_correct_number_of_products
   #   array_of_products = Product.last(3)
-  #   data = CSV.read(@data_path)
   #   assert_equal(3, array_of_products.size)
   # end
   #
