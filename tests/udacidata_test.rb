@@ -108,7 +108,7 @@ class TestUdacidata < MiniTest::Test
   #   before = CSV.read(@data_path).length
   #   Product.destroy(2)
   #   after = CSV.read(@data_path).length
-  #   assert_equal(after, before - 1)
+  #   assert_equal(before - 1, after)
   # end
   #
   # def test_destroy_method_returns_deleted_product
