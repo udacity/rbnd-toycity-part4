@@ -1,12 +1,12 @@
 require_relative 'lib/analyzable'
 require_relative 'lib/product'
 require_relative 'data/schema'
-
+# require 'faker'
 include Analyzable
 
 # Uncomment the following code once ALL your tests have passed!
 
-# db_create
+db_create
 #
 # puts "-------------------"
 # puts "RETURN ALL PRODUCTS"
@@ -22,7 +22,7 @@ include Analyzable
 # print Product.create(brand: "MySoft", name: "stuffed animal", price: 2.09)
 # print Product.create(brand: "AllMy", name: "yoyo", price: 1.00)
 # print Product.create(brand: "Udacity", name: "doll", price: 5.99)
-#
+
 # puts "-------------------"
 # puts "RETURN ALL PRODUCTS"
 # puts "-------------------"
