@@ -2,27 +2,19 @@ require 'faker'
 
 # This file contains code that populates the database with
 # fake data for testing purposes
-#  p "Hello"
 def db_seed
   
   data_path = File.dirname(__FILE__) + "/data.csv"
-# data_path =  "/ruby_toycity_4/data/data.csv"
-# p "Inside data path"
       CSV.open(data_path, "ab") do |csv|
-      	10.times do |r|
+      	10.times do |id|  #looping 10 times to get the data
       	
-      	 	brand = Faker::Company.name
+      	 	brand = Faker::Company.name #getting name brand, price from faker gem
   			name = Faker::Commerce.product_name
   			price = Faker::Commerce.price
 
-  			product = Product.new(id: r, brand: brand, name: name, price: price)
-  			csv << [r, product.brand, product.name, product.price ]
-  			   #    	puts csv
-# 
-#   			p r
-#       		p product.brand
-#       	p product.name
-#       	p product.price
+  			product = Product.new(id: id, brand: brand, name: name, price: price)
+  			csv << [id, product.brand, product.name, product.price ]  #pushing id, name, brand,price to csv 
+  
       	end
       	
 	   end	
