@@ -2,15 +2,15 @@
 #using the meta programming concepts created a find_by_name and find_by_value methods
 class Module
 
-	def create_find_by
-		attributes = {:brand => "product[1]", :name => "product[2]"} #hash for attributes
-    	attributes.each do |k, v|
+	def find_by_namebrand
+		name_brand_hash = {:brand => "brand", :name => "name"} #hash for attributes
+    	name_brand_hash.each do |k, v|
       		find_by = %Q{
         		def find_by_#{k}(arg)
         		data = Product.all 
-          		data.each do |product|
+          		data.each do |product_arr|
             		if #{v} == arg
-              			return Product.new(id: product[0], brand: product[1], name: product[2], price: product[3].to_f)
+              			return Product.new(id: product_arr[0], brand: product_arr[1], name: product_arr[2], price: product_arr[3].to_f)
             		end
           		end
         	end
@@ -18,5 +18,5 @@ class Module
       		class_eval(find_by) 
     	end
   	end
-  	create_find_by
+  	find_by_namebrand
 	end
