@@ -3,11 +3,12 @@ require_relative 'errors'
 require 'csv'
 
 class Udacidata
+  create_finder_methods "name", "brand"
 
   @@file = File.dirname(__FILE__) + "/../data/data.csv"
 
   def self.create attributes=nil
-    new_data = self.new attributes # create the object
+    new_data = new attributes # create the object
     # If the object's data is already in the database
     CSV.foreach(@@file, headers: true) do |row|
       if row["id"] == new_data.id
@@ -30,10 +31,39 @@ class Udacidata
   end
 
   def self.first n=1
-    n == 1 ? self.all.first : self.all.first(n)
+    n == 1 ? all.first : all.first(n)
   end
 
   def self.last n=1
-    n == 1 ? self.all.last : self.all.last(n)
+    n == 1 ? all.last : all.last(n)
+  end
+
+  def self.find id
+    all.select{|data| data.id == id}.first
+  end
+
+  def self.destroy id
+    deleted_product = find id
+    data = all.delete_if {|data| data.id == id}
+    empty_file
+    write_file data
+    deleted_product
+  end
+
+  def self.write_file data
+    CSV.open(@@file, "a") do |csv|
+      csv << ["id", "brand", "product", "price"]
+      data.each do |item|
+        csv << [item.id, item.brand, item.name, item.price]
+      end
+    end
+  end
+
+  def self.empty_file
+    File.open(@@file, 'w') {|file| file.truncate(0) }
+  end
+
+  def self.where hash
+    all.select{|data| data.send(hash.keys.first) == hash.values.first}
   end
 end

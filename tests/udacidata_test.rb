@@ -94,61 +94,61 @@ class TestUdacidata < MiniTest::Test
     assert_equal(3, array_of_products.size)
   end
 
-  # def test_find_method_returns_correct_product
-  #   product = Product.find(5)
-  #   assert_equal(5, product.id)
-  # end
-  #
-  # def test_find_method_returns_product_object
-  #   product = Product.find(5)
-  #   assert_instance_of(Product, product)
-  # end
-  #
-  # def test_destroy_method_removes_product_from_database
-  #   before = CSV.read(@data_path).length
-  #   Product.destroy(2)
-  #   after = CSV.read(@data_path).length
-  #   assert_equal(before - 1, after)
-  # end
-  #
-  # def test_destroy_method_returns_deleted_product
-  #   product = Product.destroy(7)
-  #   assert_equal(7, product.id)
-  # end
-  #
-  # def test_find_by_brand_method_returns_first_product_with_given_brand
-  #   Product.create(brand: "OritToys", name: "Sticky Notes", price: 34.00)
-  #   product = Product.find_by_brand("OritToys")
-  #   assert_equal("OritToys", product.brand)
-  # end
-  #
-  # def test_find_by_name_method_returns_first_product_with_given_name
-  #   Product.create(brand: "OritToys", name: "Nyan Cat", price: 3.00)
-  #   product = Product.find_by_name("Nyan Cat")
-  #   assert_equal("Nyan Cat", product.name)
-  # end
-  #
-  # def test_where_method_returns_array_type
-  #   Product.create(brand: "Lego", name: "Sticky Notes", price: 34.00)
-  #   array_of_products = Product.where(brand: "Lego")
-  #   assert_kind_of(Array, array_of_products)
-  # end
-  #
-  # def test_where_method_returns_correct_products
-  #   Product.create(brand: "Lego", name: "Sticky Notes", price: 34.00)
-  #   array_of_products = Product.where(brand: "Lego")
-  #   array_of_products.each do |product|
-  #     assert_equal("Lego", product.brand)
-  #   end
-  # end
-  #
+  def test_find_method_returns_correct_product
+    product = Product.find(5)
+    assert_equal(5, product.id)
+  end
+
+  def test_find_method_returns_product_object
+    product = Product.find(5)
+    assert_instance_of(Product, product)
+  end
+
+  def test_destroy_method_removes_product_from_database
+    before = CSV.read(@data_path).length
+    Product.destroy(2)
+    after = CSV.read(@data_path).length
+    assert_equal(before - 1, after)
+  end
+
+  def test_destroy_method_returns_deleted_product
+    product = Product.destroy(7)
+    assert_equal(7, product.id)
+  end
+
+  def test_find_by_brand_method_returns_first_product_with_given_brand
+    Product.create(brand: "OritToys", name: "Sticky Notes", price: 34.00)
+    product = Product.find_by_brand("OritToys")
+    assert_equal("OritToys", product.brand)
+  end
+
+  def test_find_by_name_method_returns_first_product_with_given_name
+    Product.create(brand: "OritToys", name: "Nyan Cat", price: 3.00)
+    product = Product.find_by_name("Nyan Cat")
+    assert_equal("Nyan Cat", product.name)
+  end
+
+  def test_where_method_returns_array_type
+    Product.create(brand: "Lego", name: "Sticky Notes", price: 34.00)
+    array_of_products = Product.where(brand: "Lego")
+    assert_kind_of(Array, array_of_products)
+  end
+
+  def test_where_method_returns_correct_products
+    Product.create(brand: "Lego", name: "Sticky Notes", price: 34.00)
+    array_of_products = Product.where(brand: "Lego")
+    array_of_products.each do |product|
+      assert_equal("Lego", product.brand)
+    end
+  end
+
   # def test_update_info_of_existing_product
   #   product = Product.find(4).update(price: 100000.00, brand: "Lolerskater")
   #   actual = [product.price.to_f, product.brand]
   #   expected = [100000.00, "Lolerskater"]
   #   assert_equal(expected, actual)
   # end
-  #
+
   # def test_update_changes_product_info_in_database
   #   database_before = CSV.read(@data_path)
   #   product = Product.find(3).update(price: 5000.00, brand: "Hello World")
