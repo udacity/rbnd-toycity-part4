@@ -28,15 +28,15 @@ puts "RETURN ALL PRODUCTS"
 puts "-------------------"
 print Product.all
 
-puts "--------------------------------------------------------------"
-puts "TEST ERROR HANDLING FOR DELETE - COMMENT OUT BEFORE SUBMITTING"
-puts "--------------------------------------------------------------"
-print Product.destroy(1000000000000)
+# puts "--------------------------------------------------------------"
+# puts "TEST ERROR HANDLING FOR DELETE - COMMENT OUT BEFORE SUBMITTING"
+# puts "--------------------------------------------------------------"
+# print Product.destroy(1000000000000)
 
-puts "------------------------------------------------------------"
-puts "TEST ERROR HANDLING FOR FIND - COMMENT OUT BEFORE SUBMITTING"
-puts "------------------------------------------------------------"
-print Product.find(1000000000000)
+# puts "------------------------------------------------------------"
+# puts "TEST ERROR HANDLING FOR FIND - COMMENT OUT BEFORE SUBMITTING"
+# puts "------------------------------------------------------------"
+# print Product.find(1000000000000)
 
 puts
 puts "--------------------"
