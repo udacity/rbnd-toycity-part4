@@ -43,11 +43,11 @@ class Udacidata
   end
 
   def self.destroy id
-    deleted_product = find id
+    deleted_data = find id
     data = all.delete_if {|data| data.id == id}
     empty_file
     write_file data
-    deleted_product
+    deleted_data
   end
 
   def self.write_file data
