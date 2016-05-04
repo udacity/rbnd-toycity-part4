@@ -39,11 +39,14 @@ class Udacidata
   end
 
   def self.find id
-    all.select{|data| data.id == id}.first
+    product = all.select{|data| data.id == id}.first
+    raise ProductNotFoundError, "Product Id #{id} not found." if product.nil?
+    product
   end
 
   def self.destroy id
     deleted_data = find id
+    raise ProductNotFoundError, "Product Id #{id} not found." if deleted_data.nil?
     data = all.delete_if {|data| data.id == id}
     empty_file
     write_file data
