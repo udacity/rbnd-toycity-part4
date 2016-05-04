@@ -1,6 +1,13 @@
 class Module
   def create_finder_methods(*attributes)
-    # Your code goes here!
-    # Hint: Remember attr_reader and class_eval
+    attributes.each do |attribute|
+      new_method = %Q{
+        def self.find_by_#{attribute} val
+          products = self.all.select{|data| data.#{attribute} == val}
+          products.first
+        end
+      }
+      class_eval new_method
+    end
   end
 end
