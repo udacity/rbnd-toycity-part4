@@ -7,10 +7,9 @@ class Udacidata
   def self.create(opts={})
     new_instance = new(opts)
     attributes = attributes(opts)
+    add_object_to_datastore(new_instance, attributes)
 
-    CSV.open(data_path, "a") do |csv|
-      csv << new_instance_attributes(new_instance, attributes)
-    end
+    new_instance
   end
 
   private
@@ -27,5 +26,11 @@ class Udacidata
 
   def self.attributes(parameters)
     parameters.keys
+  end
+
+  def self.add_object_to_datastore(object, attributes)
+    CSV.open(data_path, "a") do |csv|
+      csv << new_instance_attributes(object, attributes)
+    end
   end
 end
