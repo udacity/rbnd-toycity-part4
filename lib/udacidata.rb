@@ -39,9 +39,24 @@ class Udacidata
     end.take(elements)
   end
 
-  def self.find(element_index)
-    row = datastore[element_index - 1]
+  def self.find(index)
+    row = datastore[index - 1]
     attributes = row.to_h
+    new(attributes)
+  end
+
+  def self.destroy(index)
+    modified_datastore = datastore
+    deleted_item = modified_datastore.delete(index - 1)
+
+    CSV.open(data_path, "w", headers: true, header_converters: :symbol) do |csv|
+      csv << ["id", "brand", "product", "price"]
+      modified_datastore.each do |row|
+        csv << row
+      end
+    end
+
+    attributes = deleted_item.to_h
     new(attributes)
   end
 
