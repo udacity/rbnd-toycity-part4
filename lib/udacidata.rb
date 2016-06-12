@@ -25,40 +25,38 @@ class Udacidata
   end
 
   def self.first(elements = 1)
-    datastore.inject([]) do |objects, row|
-      attributes = row.to_h
-      return new(attributes) if elements == 1
-      objects << new(attributes)
-    end.take(elements)
+    if elements == 1
+      all.first
+    else
+      all.take(elements)
+    end
   end
 
   def self.last(elements = 1)
-    datastore.reverse_each.inject([]) do |objects, row|
-      attributes = row.to_h
-      return new(attributes) if elements == 1
-      objects << new(attributes)
-    end.take(elements)
+    if elements == 1
+      all.last
+    else
+      all.reverse.take(elements)
+    end
   end
 
   def self.find(index)
-    row = datastore[index - 1]
-    attributes = row.to_h
-    new(attributes)
+    all[index - 1]
   end
 
   def self.destroy(index)
-    modified_datastore = datastore
-    deleted_item = modified_datastore.delete(index - 1)
+    deleted_item = all.delete_at(index - 1)
+
+    table_csv = CSV.read(data_path, headers: true, return_headers: true, header_converters: :symbol)
+    table_csv.delete(index)
 
     CSV.open(data_path, "w", headers: true, header_converters: :symbol) do |csv|
-      csv << ["id", "brand", "product", "price"]
-      modified_datastore.each do |row|
+      table_csv.each do |row|
         csv << row
       end
     end
 
-    attributes = deleted_item.to_h
-    new(attributes)
+    deleted_item
   end
 
   private
