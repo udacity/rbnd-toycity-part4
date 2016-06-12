@@ -17,14 +17,18 @@ class Udacidata
   end
 
   def self.all
-    objects = []
-
-    CSV.foreach(data_path, headers: true, return_headers: false, header_converters: :symbol) do |row|
+    datastore.inject([]) do |objects, row|
       attributes = row.to_h
       objects << new(attributes)
     end
+  end
 
-    objects
+  def self.first(elements = 1)
+    datastore.inject([]) do |objects, row|
+      attributes = row.to_h
+      return new(attributes) if elements == 1
+      objects << new(attributes)
+    end.take(elements)
   end
 
   private
@@ -48,5 +52,9 @@ class Udacidata
     CSV.open(data_path, "a", headers: true, header_converters: :symbol) do |csv|
       csv << new_instance_attributes(object, headers)
     end
+  end
+
+  def self.datastore
+    CSV.read(data_path, headers: true, return_headers: false, header_converters: :symbol)
   end
 end
