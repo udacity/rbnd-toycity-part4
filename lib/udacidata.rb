@@ -31,6 +31,14 @@ class Udacidata
     end.take(elements)
   end
 
+  def self.last(elements = 1)
+    datastore.reverse_each.inject([]) do |objects, row|
+      attributes = row.to_h
+      return new(attributes) if elements == 1
+      objects << new(attributes)
+    end.take(elements)
+  end
+
   private
 
   def self.data_path
