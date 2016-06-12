@@ -39,6 +39,12 @@ class Udacidata
     end.take(elements)
   end
 
+  def self.find(element_index)
+    row = datastore[element_index - 1]
+    attributes = row.to_h
+    new(attributes)
+  end
+
   private
 
   def self.data_path

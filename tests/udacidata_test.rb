@@ -94,16 +94,16 @@ class TestUdacidata < MiniTest::Test
     assert_equal(3, array_of_products.size)
   end
 
-  # def test_find_method_returns_correct_product
-  #   product = Product.find(5)
-  #   assert_equal(5, product.id)
-  # end
-  #
-  # def test_find_method_returns_product_object
-  #   product = Product.find(5)
-  #   assert_instance_of(Product, product)
-  # end
-  #
+  def test_find_method_returns_correct_product
+    product = Product.find(5)
+    assert_equal(5, product.id)
+  end
+
+  def test_find_method_returns_product_object
+    product = Product.find(5)
+    assert_instance_of(Product, product)
+  end
+
   # def test_destroy_method_removes_product_from_database
   #   before = CSV.read(@data_path).length
   #   Product.destroy(2)
