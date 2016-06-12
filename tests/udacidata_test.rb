@@ -6,7 +6,7 @@ class TestUdacidata < MiniTest::Test
 
   def setup
     @data_path = File.dirname(__FILE__) + "/../data/data.csv"
-    CSV.open(@data_path, "wb") do |csv|
+    CSV.open(@data_path, "wb", headers: true, write_headers: true) do |csv|
       csv << ["id", "brand", "product", "price"]
     end
     db_seed
@@ -26,24 +26,24 @@ class TestUdacidata < MiniTest::Test
     assert_instance_of(Product, product)
   end
 
-  # def test_all_method_returns_array_data_type
-  #   array_of_products = Product.all
-  #   assert_kind_of(Array, array_of_products)
-  # end
-  #
-  # def test_all_method_returns_array_of_products
-  #   array_of_products = Product.all
-  #   array_of_products.each do |product|
-  #     assert_instance_of(Product, product)
-  #   end
-  # end
-  #
-  # def test_all_method_returns_all_products_in_database
-  #   expected = CSV.read(@data_path).drop(1).length
-  #   actual = Product.all.length
-  #   assert_equal(expected, actual)
-  # end
-  #
+  def test_all_method_returns_array_data_type
+    array_of_products = Product.all
+    assert_kind_of(Array, array_of_products)
+  end
+
+  def test_all_method_returns_array_of_products
+    array_of_products = Product.all
+    array_of_products.each do |product|
+      assert_instance_of(Product, product)
+    end
+  end
+
+  def test_all_method_returns_all_products_in_database
+    expected = CSV.read(@data_path).drop(1).length
+    actual = Product.all.length
+    assert_equal(expected, actual)
+  end
+
   # def test_first_method_returns_product_object
   #   product = Product.first
   #   assert_instance_of(Product, product)
@@ -158,10 +158,10 @@ class TestUdacidata < MiniTest::Test
   #   assert_equal(database_before.size, database_after.size)
   # end
 
-  # The "teardown" method always runs after the tests are done
-  # "teardown" will delete the test database when tests are done
-  def teardown
-    File.delete(@data_path)
-  end
-
+  # # The "teardown" method always runs after the tests are done
+  # # "teardown" will delete the test database when tests are done
+  # def teardown
+  #   File.delete(@data_path)
+  # end
+  #
 end
