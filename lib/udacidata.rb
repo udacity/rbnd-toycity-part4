@@ -10,6 +10,7 @@ class Udacidata
     new_instance = new(opts)
     opts_with_id = opts.merge(id: new_instance.id)
     attributes = attributes(opts_with_id)
+    create_finder_methods(*opts.keys)
 
     add_object_to_datastore(new_instance, attributes)
 
@@ -76,10 +77,13 @@ class Udacidata
     parameters.keys
   end
 
+  def self.headers
+    CSV.read(data_path, headers: true, return_headers: true, header_converters: :symbol).headers
+  end
+
   def self.add_object_to_datastore(object, attributes)
-    headers = CSV.read(data_path, headers: true, return_headers: true, header_converters: :symbol).headers
     CSV.open(data_path, "a", headers: true, header_converters: :symbol) do |csv|
-      csv << new_instance_attributes(object, headers)
+      csv << new_instance_attributes(object, self.headers)
     end
   end
 
