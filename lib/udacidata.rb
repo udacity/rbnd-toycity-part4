@@ -73,12 +73,14 @@ class Udacidata
     item_to_update = self
 
     table_csv_file = self.class.table_csv_file
+
     table_csv_row_to_update = table_csv_file.find do |item|
       item[:id].to_i == item_to_update.id
     end
 
     attributes.each do |attribute, new_value|
-      table_csv_file[table_csv_row_to_update][attribute] = new_value
+      id = table_csv_row_to_update[:id].to_i
+      table_csv_file[id - 1][attribute] = new_value
       self.send("#{attribute}=", new_value)
     end
 
