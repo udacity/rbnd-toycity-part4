@@ -68,6 +68,23 @@ class Udacidata
     end
   end
 
+  def update(attributes)
+    updated_object = self.class.new(attributes)
+    table_csv = CSV.read(Udacidata.data_path, headers: true, return_headers: true, header_converters: :symbol)
+
+    attributes.each do |attribute, new_value|
+      table_csv[updated_object.id - 1][attribute] = new_value
+    end
+
+    CSV.open(Udacidata.data_path, "w", headers: true, header_converters: :symbol) do |csv|
+      table_csv.each do |row|
+        csv << row
+      end
+    end
+
+    updated_object
+  end
+
   private
 
   def self.data_path
