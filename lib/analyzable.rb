@@ -8,7 +8,19 @@ module Analyzable
   end
 
   def self.print_report(items)
-    "Paul"
+    report = "Inventory by Brand:\n"
+
+    count_by_brand(items).each do |brand, count|
+      report += "- #{brand}: #{count}\n"
+    end
+
+    report += "Inventory by Name:\n"
+
+    count_by_name(items).each do |name, count|
+      report += "- #{name}: #{count}\n"
+    end
+
+    report
   end
 
   def self.count_by_brand(items)

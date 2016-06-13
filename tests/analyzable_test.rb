@@ -47,5 +47,4 @@ class TestAnalyzable < MiniTest::Test
   def teardown
     File.delete(@data_path)
   end
-
 end
