@@ -46,15 +46,9 @@ class Udacidata
 
   def self.destroy(index)
     deleted_item = all.delete_at(index - 1)
-
-    table_csv = CSV.read(data_path, headers: true, return_headers: true, header_converters: :symbol)
-    table_csv.delete(index)
-
-    CSV.open(data_path, "w", headers: true, header_converters: :symbol) do |csv|
-      table_csv.each do |row|
-        csv << row
-      end
-    end
+    table_csv_file = self.table_csv_file
+    table_csv_file.delete(index)
+    update_data_store(table_csv_file)
 
     deleted_item
   end
@@ -70,17 +64,13 @@ class Udacidata
 
   def update(attributes)
     updated_object = self.class.new(attributes)
-    table_csv = CSV.read(Udacidata.data_path, headers: true, return_headers: true, header_converters: :symbol)
+    table_csv_file = self.class.table_csv_file
 
     attributes.each do |attribute, new_value|
-      table_csv[updated_object.id - 1][attribute] = new_value
+      table_csv_file[updated_object.id - 1][attribute] = new_value
     end
 
-    CSV.open(Udacidata.data_path, "w", headers: true, header_converters: :symbol) do |csv|
-      table_csv.each do |row|
-        csv << row
-      end
-    end
+    self.class.update_data_store(table_csv_file)
 
     updated_object
   end
@@ -113,5 +103,17 @@ class Udacidata
 
   def self.datastore
     CSV.read(data_path, headers: true, return_headers: false, header_converters: :symbol)
+  end
+
+  def self.table_csv_file
+    CSV.read(data_path, headers: true, return_headers: true, header_converters: :symbol)
+  end
+
+  def self.update_data_store(table_csv_file)
+    CSV.open(Udacidata.data_path, "w", headers: true, header_converters: :symbol) do |csv|
+      table_csv_file.each do |row|
+        csv << row
+      end
+    end
   end
 end
