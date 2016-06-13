@@ -12,9 +12,14 @@ module Analyzable
   end
 
   def self.count_by_brand(items)
-    items.inject(Hash.new(0)) do |brand_count, item|
+    items.each_with_object(Hash.new(0)) do |item, brand_count|
       brand_count[item.brand] += 1
-      brand_count
+    end
+  end
+
+  def self.count_by_name(items)
+    items.each_with_object(Hash.new(0)) do |item, name_count|
+      name_count[item.name] += 1
     end
   end
 end
