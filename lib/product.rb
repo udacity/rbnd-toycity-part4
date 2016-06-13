@@ -13,23 +13,24 @@ class Product < Udacidata
     auto_increment if !opts[:id]
     # Set the brand, name, and price normally
     @brand = opts[:brand]
-    @name = opts[:name]
+    @name = opts[:name] || opts[:product]
     @price = opts[:price]
   end
 
+  alias_method :product, :name
+
   private
 
-    # Reads the last line of the data file, and gets the id if one exists
-    # If it exists, increment and use this value
-    # Otherwise, use 0 as starting ID number
-    def get_last_id
-      file = File.dirname(__FILE__) + "/../data/data.csv"
-      last_id = File.exist?(file) ? CSV.read(file).last[0].to_i + 1 : nil
-      @@count_class_instances = last_id || 0
-    end
+  # Reads the last line of the data file, and gets the id if one exists
+  # If it exists, increment and use this value
+  # Otherwise, use 0 as starting ID number
+  def get_last_id
+    file = File.dirname(__FILE__) + "/../data/data.csv"
+    last_id = File.exist?(file) ? CSV.read(file).last[0].to_i + 1 : nil
+    @@count_class_instances = last_id || 0
+  end
 
-    def auto_increment
-      @@count_class_instances += 1
-    end
-
+  def auto_increment
+    @@count_class_instances += 1
+  end
 end
