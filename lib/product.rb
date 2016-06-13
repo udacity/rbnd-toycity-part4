@@ -1,7 +1,7 @@
 require_relative 'udacidata'
 
 class Product < Udacidata
-  attr_reader :id, :price, :brand, :name
+  attr_accessor :id, :price, :brand, :name
 
   def initialize(opts={})
 
@@ -18,6 +18,10 @@ class Product < Udacidata
   end
 
   alias_method :product, :name
+
+  def to_s
+    self.inspect
+  end
 
   private
 

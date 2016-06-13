@@ -41,16 +41,23 @@ class Udacidata
   end
 
   def self.find(index)
-    all[index - 1]
+    check_product_exists(index)
+    all.find { |item| item.id == index }
   end
 
   def self.destroy(index)
-    deleted_item = all.delete_at(index - 1)
-    table_csv_file = self.table_csv_file
-    table_csv_file.delete(index)
-    update_data_store(table_csv_file)
+    check_product_exists(index)
+    item_to_delete = find(index)
 
-    deleted_item
+    table_csv_file = self.table_csv_file
+    table_csv_file.each_with_index do |item, index|
+      if item[:id].to_i == item_to_delete.id
+        table_csv_file.delete(index)
+      end
+    end
+
+    update_data_store(table_csv_file)
+    item_to_delete
   end
 
   def self.where(filter)
@@ -63,16 +70,21 @@ class Udacidata
   end
 
   def update(attributes)
-    updated_object = self.class.new(attributes)
+    item_to_update = self
+
     table_csv_file = self.class.table_csv_file
+    table_csv_row_to_update = table_csv_file.find do |item|
+      item[:id].to_i == item_to_update.id
+    end
 
     attributes.each do |attribute, new_value|
-      table_csv_file[updated_object.id - 1][attribute] = new_value
+      table_csv_file[table_csv_row_to_update][attribute] = new_value
+      self.send("#{attribute}=", new_value)
     end
 
     self.class.update_data_store(table_csv_file)
 
-    updated_object
+    item_to_update
   end
 
   private
@@ -114,6 +126,12 @@ class Udacidata
       table_csv_file.each do |row|
         csv << row
       end
+    end
+  end
+
+  def self.check_product_exists(index)
+    unless all[index - 1]
+      raise ProductNotFoundError, "The Product with ID #{index} cannot be found."
     end
   end
 end
