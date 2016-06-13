@@ -128,20 +128,20 @@ class TestUdacidata < MiniTest::Test
     assert_equal("Nyan Cat", product.name)
   end
 
-  # def test_where_method_returns_array_type
-  #   Product.create(brand: "Lego", name: "Sticky Notes", price: 34.00)
-  #   array_of_products = Product.where(brand: "Lego")
-  #   assert_kind_of(Array, array_of_products)
-  # end
-  #
-  # def test_where_method_returns_correct_products
-  #   Product.create(brand: "Lego", name: "Sticky Notes", price: 34.00)
-  #   array_of_products = Product.where(brand: "Lego")
-  #   array_of_products.each do |product|
-  #     assert_equal("Lego", product.brand)
-  #   end
-  # end
-  #
+  def test_where_method_returns_array_type
+    Product.create(brand: "Lego", name: "Sticky Notes", price: 34.00)
+    array_of_products = Product.where(brand: "Lego")
+    assert_kind_of(Array, array_of_products)
+  end
+
+  def test_where_method_returns_correct_products
+    Product.create(brand: "Lego", name: "Sticky Notes", price: 34.00)
+    array_of_products = Product.where(brand: "Lego")
+    array_of_products.each do |product|
+      assert_equal("Lego", product.brand)
+    end
+  end
+
   # def test_update_info_of_existing_product
   #   product = Product.find(4).update(price: 100000.00, brand: "Lolerskater")
   #   actual = [product.price.to_f, product.brand]

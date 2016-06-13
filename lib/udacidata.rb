@@ -59,6 +59,15 @@ class Udacidata
     deleted_item
   end
 
+  def self.where(filter)
+    attribute = filter.keys.first
+    value = filter[attribute]
+
+    all.select do |item|
+      item.send(attribute) == value
+    end
+  end
+
   private
 
   def self.data_path
