@@ -1,0 +1,19 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    byebug (9.0.5)
+    faker (1.6.5)
+      i18n (~> 0.5)
+    i18n (0.7.0)
+    minitest (5.9.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  byebug
+  faker
+  minitest
+
+BUNDLED WITH
+   1.12.5
